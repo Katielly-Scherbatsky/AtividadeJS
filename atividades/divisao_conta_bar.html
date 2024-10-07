@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atividade 2 - Cálculo de Salário e INSS</title>
+  <title>Divisão da Conta do Bar</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -13,7 +13,7 @@
     }
 
     .container {
-      max-width: 800px;
+      max-width: 400px;
       margin: 0 auto;
       background: white;
       padding: 20px;
@@ -22,12 +22,8 @@
       text-align: center;
     }
 
-    h1 {
+    h2 {
       color: #333;
-    }
-
-    h3 {
-      color: #0056b3;
     }
 
     input {
@@ -62,7 +58,6 @@
     }
 
     #resetarButton {
-      width: 48%;
       background-color: #FF6347;
       color: white;
       padding: 10px;
@@ -82,7 +77,7 @@
       cursor: not-allowed;
     }
 
-    .voltar-button {
+    .back-button {
       background-color: #999;
       color: white;
       text-decoration: none;
@@ -92,7 +87,7 @@
       margin-top: 20px;
     }
 
-    .voltar-button:hover {
+    .back-button:hover {
       background-color: #333;
     }
 
@@ -107,53 +102,46 @@
 <body>
 
   <div class="container">
-    <h1>Cálculo de Salário com INSS</h1>
-    <h3>Simule o aumento de 20% no salário de um funcionário e calcule o desconto de INSS.</h3>
-
-    <input type="number" id="salario" placeholder="Salário Inicial" oninput="verificarSalario()">
+    <h2>Divisão da Conta do Bar</h2>
+    <input type="number" id="valorConta" placeholder="Valor total da conta" oninput="verificarCampo()">
 
     <div class="button-container">
-      <button onclick="calcularSalario()">Calcular Salário</button>
-      <button id="resetarButton" onclick="resetarSalario()" disabled>Resetar</button>
+      <button onclick="dividirConta()">Dividir Conta</button>
+      <button id="resetarButton" onclick="resetarCampos()" disabled>Resetar</button>
     </div>
 
     <div class="result" id="resultado"></div>
-
-    <a href="index.html" class="voltar-button">Voltar para o Início</a>
+    <a href="../index.html" class="back-button">Voltar para o Início</a>
   </div>
 
   <script>
-    function calcularSalario() {
-      let salarioInicial = parseFloat(document.getElementById('salario').value);
+    function dividirConta() {
+      let valorConta = parseFloat(document.getElementById('valorConta').value);
 
-      if (isNaN(salarioInicial)) {
-        document.getElementById('resultado').innerHTML = 'Por favor, insira um salário válido.';
+      if (isNaN(valorConta) || valorConta <= 0) {
+        document.getElementById('resultado').innerHTML = 'Por favor, insira um valor válido.';
         return;
       }
 
-      let aumento = salarioInicial * 0.20;
-      let salarioComAumento = salarioInicial + aumento;
-      let descontoINSS = salarioComAumento * 0.08;
-      let salarioFinal = salarioComAumento - descontoINSS;
+      let parteCarlosAndre = Math.floor(valorConta / 3);
+      let parteFelipe = valorConta - (parteCarlosAndre * 2);
 
       document.getElementById('resultado').innerHTML = `
-                Salário Inicial: R$ ${salarioInicial.toFixed(2)}<br>
-                Salário com Aumento: R$ ${salarioComAumento.toFixed(2)}<br>
-                Desconto INSS: R$ ${descontoINSS.toFixed(2)}<br>
-                Salário Final: R$ ${salarioFinal.toFixed(2)}
-            `;
+        Carlos deve pagar: R$ ${parteCarlosAndre.toFixed(2)}<br>
+        André deve pagar: R$ ${parteCarlosAndre.toFixed(2)}<br>
+        Felipe deve pagar: R$ ${parteFelipe.toFixed(2)}
+      `;
     }
 
-    function resetarSalario() {
-      document.getElementById('salario').value = '';
+    function resetarCampos() {
+      document.getElementById('valorConta').value = '';
       document.getElementById('resultado').innerHTML = '';
       document.getElementById('resetarButton').disabled = true;
     }
 
-    function verificarSalario() {
-      const salario = document.getElementById('salario').value;
-      const resetarButton = document.getElementById('resetarButton');
-      resetarButton.disabled = !salario;
+    function verificarCampo() {
+      const valorConta = document.getElementById('valorConta').value;
+      document.getElementById('resetarButton').disabled = !valorConta;
     }
   </script>
 
