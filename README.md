@@ -1,6 +1,6 @@
 ## Atividades JS
 
-### Projeto: [Atividade JS](https://github.com/Katielly-Scherbatsky/AtividadeJS)
+### Projeto: [Atividade JS](https://katielly-scherbatsky.github.io/AtividadeJS/)
 
 Este projeto contém diversos algoritmos desenvolvidos em JavaScript para resolver problemas simples, como cálculo de média, aumento salarial, vendas de camisetas e divisão de conta de bar.
 
@@ -25,7 +25,7 @@ Este projeto contém diversos algoritmos desenvolvidos em JavaScript para resolv
 
 Você pode visualizar o código completo no GitHub:
 
-[AtividadeJS no GitHub](https://github.com/Katielly-Scherbatsky/AtividadeJS)
+[AtividadeJS no GitHub](https://katielly-scherbatsky.github.io/AtividadeJS/)
 
 ### ⚙️ Como Rodar o Projeto Localmente
 
