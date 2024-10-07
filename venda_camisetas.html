@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Venda de Camisetas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #333;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    h3 {
+      color: #0056b3;
+    }
+
+    input {
+      width: calc(50% - 20px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1.1em;
+    }
+
+    .input-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    button {
+      width: 48%;
+      background-color: #0056b3;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #02356b;
+    }
+
+    #resetarButton {
+      background-color: #FF6347;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #resetarButton:hover {
+      background-color: #e55347;
+    }
+
+    #resetarButton:disabled {
+      background-color: #02356b;
+      cursor: not-allowed;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .voltar-button {
+      background-color: #999;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    .voltar-button:hover {
+      background-color: #333;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Venda de Camisetas</h1>
+    <h3>Calcule o valor total de uma venda de camisetas de diferentes tamanhos.</h3>
+
+    <div class="input-container">
+      <input type="number" id="pequenas" placeholder="Quantidade Camisetas P" oninput="verificarCampos()">
+      <input type="number" id="medias" placeholder="Quantidade Camisetas M" oninput="verificarCampos()">
+      <input type="number" id="grandes" placeholder="Quantidade Camisetas G" oninput="verificarCampos()">
+    </div>
+
+    <div class="button-container">
+      <button onclick="calcularTotal()">Calcular Total</button>
+      <button id="resetarButton" onclick="resetarCampos()" disabled>Resetar</button>
+    </div>
+
+    <div class="result" id="resultado"></div>
+    <a href="index.html" class="voltar-button">Voltar para o Início</a>
+  </div>
+
+  <script>
+    function calcularTotal() {
+      let pequenas = parseInt(document.getElementById('pequenas').value);
+      let medias = parseInt(document.getElementById('medias').value);
+      let grandes = parseInt(document.getElementById('grandes').value);
+
+      if (isNaN(pequenas)) pequenas = 0;
+      if (isNaN(medias)) medias = 0;
+      if (isNaN(grandes)) grandes = 0;
+
+      let precoPequena = 10;
+      let precoMedia = 12;
+      let precoGrande = 15;
+
+      let totalPequenas = pequenas * precoPequena;
+      let totalMedias = medias * precoMedia;
+      let totalGrandes = grandes * precoGrande;
+      let total = totalPequenas + totalMedias + totalGrandes;
+
+      document.getElementById('resultado').innerHTML = `
+        Valor total arrecadado: R$ ${total.toFixed(2)} <br>
+        Camisetas P: R$ ${totalPequenas.toFixed(2)} <br>
+        Camisetas M: R$ ${totalMedias.toFixed(2)} <br>
+        Camisetas G: R$ ${totalGrandes.toFixed(2)}
+      `;
+    }
+
+    function resetarCampos() {
+      document.getElementById('pequenas').value = '';
+      document.getElementById('medias').value = '';
+      document.getElementById('grandes').value = '';
+      document.getElementById('resultado').innerHTML = '';
+      document.getElementById('resetarButton').disabled = true;
+    }
+
+    function verificarCampos() {
+      const pequenas = document.getElementById('pequenas').value;
+      const medias = document.getElementById('medias').value;
+      const grandes = document.getElementById('grandes').value;
+
+      document.getElementById('resetarButton').disabled = !(pequenas || medias || grandes);
+    }
+  </script>
+
+</body>
+
+</html>

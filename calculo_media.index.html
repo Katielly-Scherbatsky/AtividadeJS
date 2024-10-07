@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade 1 - Cálculo da Média</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        h3 {
+            color: #0056b3;
+        }
+
+        .notas {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 48%;
+            background-color: #0056b3;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #02356b;
+        }
+
+        #resetarButton {
+            width: 48%;
+            background-color: #FF6347;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #resetarButton:hover {
+            background-color: #e55347;
+        }
+
+        #resetarButton:disabled {
+            background-color: #02356b;
+            cursor: not-allowed;
+        }
+
+        .voltar-button {
+            background-color: #999;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .voltar-button:hover {
+            background-color: #333;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Cálculo da Média de Notas</h1>
+        <h3>Receba as notas de um aluno, calcule e exiba sua média.</h3>
+
+        <div class="notas">
+            <input style="margin-right: 15px;" type="number" id="nota1" placeholder="Nota 1" oninput="verificarNotas()">
+            <input style="margin-left: 15px;" type="number" id="nota2" placeholder="Nota 2" oninput="verificarNotas()">
+            <input style="margin-right: 15px;" type="number" id="nota3" placeholder="Nota 3" oninput="verificarNotas()">
+            <input style="margin-left: 15px;" type="number" id="nota4" placeholder="Nota 4" oninput="verificarNotas()">
+        </div>
+
+        <div class="button-container">
+            <button onclick="calcularMedia()">Calcular Média</button>
+            <button id="resetarButton" onclick="resetarNotas()" disabled>Resetar Notas</button>
+        </div>
+
+        <div class="result" id="resultado"></div>
+
+        <a href="index.html" class="voltar-button">Voltar para o Início</a>
+    </div>
+
+    <script>
+        function calcularMedia() {
+            let nota1 = parseFloat(document.getElementById('nota1').value);
+            let nota2 = parseFloat(document.getElementById('nota2').value);
+            let nota3 = parseFloat(document.getElementById('nota3').value);
+            let nota4 = parseFloat(document.getElementById('nota4').value);
+
+            if (isNaN(nota1) || isNaN(nota2) || isNaN(nota3) || isNaN(nota4)) {
+                document.getElementById('resultado').innerHTML = 'Por favor, insira todas as notas.';
+                return;
+            }
+
+            let media = (nota1 + nota2 + nota3 + nota4) / 4;
+            document.getElementById('resultado').innerHTML = `A média do aluno é: ${media.toFixed(2)}`;
+        }
+
+        function resetarNotas() {
+            document.getElementById('nota1').value = '';
+            document.getElementById('nota2').value = '';
+            document.getElementById('nota3').value = '';
+            document.getElementById('nota4').value = '';
+            document.getElementById('resultado').innerHTML = '';
+            document.getElementById('resetarButton').disabled = true;
+        }
+
+        function verificarNotas() {
+            const nota1 = document.getElementById('nota1').value;
+            const nota2 = document.getElementById('nota2').value;
+            const nota3 = document.getElementById('nota3').value;
+            const nota4 = document.getElementById('nota4').value;
+
+            const resetarButton = document.getElementById('resetarButton');
+            resetarButton.disabled = !(nota1 || nota2 || nota3 || nota4);
+        }
+    </script>
+
+</body>
+
+</html>

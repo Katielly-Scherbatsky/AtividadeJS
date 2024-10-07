@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atividade 2 - Cálculo de Salário e INSS</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #333;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    h3 {
+      color: #0056b3;
+    }
+
+    input {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1.1em;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    button {
+      width: 48%;
+      background-color: #0056b3;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #02356b;
+    }
+
+    #resetarButton {
+      width: 48%;
+      background-color: #FF6347;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #resetarButton:hover {
+      background-color: #e55347;
+    }
+
+    #resetarButton:disabled {
+      background-color: #02356b;
+      cursor: not-allowed;
+    }
+
+    .voltar-button {
+      background-color: #999;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    .voltar-button:hover {
+      background-color: #333;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Cálculo de Salário com INSS</h1>
+    <h3>Simule o aumento de 20% no salário de um funcionário e calcule o desconto de INSS.</h3>
+
+    <input type="number" id="salario" placeholder="Salário Inicial" oninput="verificarSalario()">
+
+    <div class="button-container">
+      <button onclick="calcularSalario()">Calcular Salário</button>
+      <button id="resetarButton" onclick="resetarSalario()" disabled>Resetar</button>
+    </div>
+
+    <div class="result" id="resultado"></div>
+
+    <a href="index.html" class="voltar-button">Voltar para o Início</a>
+  </div>
+
+  <script>
+    function calcularSalario() {
+      let salarioInicial = parseFloat(document.getElementById('salario').value);
+
+      if (isNaN(salarioInicial)) {
+        document.getElementById('resultado').innerHTML = 'Por favor, insira um salário válido.';
+        return;
+      }
+
+      let aumento = salarioInicial * 0.20;
+      let salarioComAumento = salarioInicial + aumento;
+      let descontoINSS = salarioComAumento * 0.08;
+      let salarioFinal = salarioComAumento - descontoINSS;
+
+      document.getElementById('resultado').innerHTML = `
+                Salário Inicial: R$ ${salarioInicial.toFixed(2)}<br>
+                Salário com Aumento: R$ ${salarioComAumento.toFixed(2)}<br>
+                Desconto INSS: R$ ${descontoINSS.toFixed(2)}<br>
+                Salário Final: R$ ${salarioFinal.toFixed(2)}
+            `;
+    }
+
+    function resetarSalario() {
+      document.getElementById('salario').value = '';
+      document.getElementById('resultado').innerHTML = '';
+      document.getElementById('resetarButton').disabled = true;
+    }
+
+    function verificarSalario() {
+      const salario = document.getElementById('salario').value;
+      const resetarButton = document.getElementById('resetarButton');
+      resetarButton.disabled = !salario;
+    }
+  </script>
+
+</body>
+
+</html>

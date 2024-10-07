@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Média de Alunos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #333;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    h3 {
+      color: #0056b3;
+    }
+
+    input {
+      width: calc(50% - 20px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1.1em;
+    }
+
+    .input-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    button {
+      width: calc(100%);
+      background-color: #0056b3;
+      color: white;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #02356b;
+    }
+
+    .voltar-button {
+      background-color: #999;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    .voltar-button:hover {
+      background-color: #333;
+    }
+
+    .result {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      font-size: 1.2em;
+      color: #333;
+    }
+
+    .reset-button {
+      background-color: #FF6347;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .reset-button:hover {
+      background-color: #e55347;
+    }
+
+    .media-button {
+      background-color: #0056b3;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      width: 48%;
+      transition: background-color 0.3s;
+    }
+
+    .media-button:hover {
+      background-color: #02356b;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    #resetarButton {
+      width: 48%;
+      background-color: #FF6347;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #resetarButton:hover {
+      background-color: #e55347;
+    }
+
+    #resetarButton:disabled {
+      background-color: #02356b;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Média de Alunos</h1>
+    <h3>Insira dados de vários alunos, calcule a média individual e exiba a média geral da turma.</h3>
+
+    <input style="width: 97%; margin-right: 20px;" type="text" id="nome" placeholder="Nome do Aluno">
+
+    <div class="input-container">
+      <input type="number" id="nota1" placeholder="Nota 1" step="0.01" min="0" max="10">
+      <input type="number" id="nota2" placeholder="Nota 2" step="0.01" min="0" max="10">
+    </div>
+
+    <button onclick="adicionarAluno()">Adicionar Aluno</button>
+    <div class="result" id="resultado"></div>
+
+    <div class="button-container">
+      <button class="media-button" onclick="mostrarMediaGeral()">Mostrar Média Geral</button>
+      <button id="resetarButton" onclick="resetarAlunos()" disabled>Resetar</button>
+    </div>
+
+    <a href="index.html" class="voltar-button">Voltar para o Início</a>
+  </div>
+
+  <script>
+    let alunos = [];
+
+    function adicionarAluno() {
+      let nome = document.getElementById('nome').value;
+      let nota1 = parseFloat(document.getElementById('nota1').value);
+      let nota2 = parseFloat(document.getElementById('nota2').value);
+
+      if (!nome || isNaN(nota1) || isNaN(nota2)) {
+        document.getElementById('resultado').innerHTML = 'Por favor, preencha todos os campos.';
+        return;
+      }
+
+      alunos.push({ nome: nome, nota1: nota1, nota2: nota2 });
+      document.getElementById('resultado').innerHTML = `Aluno ${nome} adicionado com sucesso!`;
+      document.getElementById('nome').value = '';
+      document.getElementById('nota1').value = '';
+      document.getElementById('nota2').value = '';
+
+      document.getElementById('resetarButton').disabled = false;
+    }
+
+    function mostrarMediaGeral() {
+      if (alunos.length === 0) {
+        document.getElementById('resultado').innerHTML = 'Nenhum aluno adicionado.';
+        return;
+      }
+
+      let somaMedias = 0;
+      document.getElementById('resultado').innerHTML = '';
+      alunos.forEach(aluno => {
+        let media = (aluno.nota1 + aluno.nota2) / 2;
+        somaMedias += media;
+        document.getElementById('resultado').innerHTML += `<br>Aluno: ${aluno.nome} - Média: ${media.toFixed(2)} - ${classificarAluno(media)}`;
+      });
+
+      let mediaGeral = somaMedias / alunos.length;
+      document.getElementById('resultado').innerHTML += `<br><strong>Média Geral da Turma: ${mediaGeral.toFixed(2)}</strong>`;
+    }
+
+    function classificarAluno(media) {
+      if (media > 70.0) {
+        return 'Aluno Aprovado';
+      } else if (media === 70.0) {
+        return 'Aluno em Recuperação';
+      } else {
+        return 'Aluno Reprovado';
+      }
+    }
+
+    function resetarAlunos() {
+      alunos = [];
+      document.getElementById('resultado').innerHTML = 'Todos os alunos foram removidos.';
+      document.getElementById('nome').value = '';
+      document.getElementById('nota1').value = '';
+      document.getElementById('nota2').value = '';
+
+      document.getElementById('resetarButton').disabled = true;
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Divisão da Conta do Bar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #333;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    input {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1.1em;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    button {
+      width: 48%;
+      background-color: #0056b3;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #02356b;
+    }
+
+    #resetarButton {
+      background-color: #FF6347;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #resetarButton:hover {
+      background-color: #e55347;
+    }
+
+    #resetarButton:disabled {
+      background-color: #02356b;
+      cursor: not-allowed;
+    }
+
+    .back-button {
+      background-color: #999;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    .back-button:hover {
+      background-color: #333;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>Divisão da Conta do Bar</h2>
+    <input type="number" id="valorConta" placeholder="Valor total da conta" oninput="verificarCampo()">
+
+    <div class="button-container">
+      <button onclick="dividirConta()">Dividir Conta</button>
+      <button id="resetarButton" onclick="resetarCampos()" disabled>Resetar</button>
+    </div>
+
+    <div class="result" id="resultado"></div>
+    <a href="index.html" class="back-button">Voltar para o Início</a>
+  </div>
+
+  <script>
+    function dividirConta() {
+      let valorConta = parseFloat(document.getElementById('valorConta').value);
+
+      if (isNaN(valorConta) || valorConta <= 0) {
+        document.getElementById('resultado').innerHTML = 'Por favor, insira um valor válido.';
+        return;
+      }
+
+      let parteCarlosAndre = Math.floor(valorConta / 3);
+      let parteFelipe = valorConta - (parteCarlosAndre * 2);
+
+      document.getElementById('resultado').innerHTML = `
+        Carlos deve pagar: R$ ${parteCarlosAndre.toFixed(2)}<br>
+        André deve pagar: R$ ${parteCarlosAndre.toFixed(2)}<br>
+        Felipe deve pagar: R$ ${parteFelipe.toFixed(2)}
+      `;
+    }
+
+    function resetarCampos() {
+      document.getElementById('valorConta').value = '';
+      document.getElementById('resultado').innerHTML = '';
+      document.getElementById('resetarButton').disabled = true;
+    }
+
+    function verificarCampo() {
+      const valorConta = document.getElementById('valorConta').value;
+      document.getElementById('resetarButton').disabled = !valorConta;
+    }
+  </script>
+
+</body>
+
+</html>
