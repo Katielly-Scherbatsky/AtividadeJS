@@ -1,6 +1,6 @@
 ## Atividades JS
 
-### Projeto: [Curriculum and Contact](https://katielly-scherbatsky.github.io/curriculumAndContact/)
+### Projeto: [Atividade JS](https://github.com/Katielly-Scherbatsky/AtividadeJS)
 
 Este projeto contém diversos algoritmos desenvolvidos em JavaScript para resolver problemas simples, como cálculo de média, aumento salarial, vendas de camisetas e divisão de conta de bar.
 
